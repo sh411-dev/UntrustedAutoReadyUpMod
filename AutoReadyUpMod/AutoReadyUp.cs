@@ -18,7 +18,7 @@ namespace AutoReadyUp
         }
     }
 
-    [HarmonyPatch(typeof(LobbyUiManager), "OnChatLeft")]
+    [HarmonyPatch(typeof(LobbyUiManager), "OnDisconnectButtonClicked")]
     public static class OnChatLeftPatch
     {
         public static void Postfix()
@@ -49,12 +49,12 @@ namespace AutoReadyUp
                 if (Conditions.didPlayerDecided == true && Conditions.activateMod == false)
                 {
                     Conditions.activateMod = true;
-                    Terminal.Log("Activated mod for current lobby!");
+                    Terminal.Log("Activated for current lobby!");
                 }
                 else if (Conditions.didPlayerDecided == false && Conditions.activateMod == true)
                 {
                     Conditions.activateMod = false;
-                    Terminal.Log("Deactivated mod for current lobby!");
+                    Terminal.Log("Deactivated for current lobby!");
                 }
             }
 
@@ -99,8 +99,23 @@ namespace AutoReadyUp
     {
         public static void Log(string message)
         {
-            TerminalHelperUpdatePatch.terminalHelper.AddASCsystemMessage
-                ("<AutoReadyUpMod> " + message);
+            /* arguments
+             * 1 is a type of message:
+             *      -1 - system message
+             *      -2 - broadcast???
+             *      -3 - chat message
+             *      -4 - some kind of purple text in the second argument
+             *      -5 - asc
+             * 2 is initial text
+             * 3 is a message
+             * 4 is an icon
+             * 5 is event icon
+             * 6 is text speed
+             * 
+             * the rest are unknown to me
+             */
+            TerminalHelperUpdatePatch.terminalHelper.addTerminalChatMessage
+                (-5, "<AutoReadyUp>", message, false, false, 0.1f, 0, false, false);
         }
     }
 
@@ -129,7 +144,7 @@ namespace AutoReadyUp
 
                     if (Conditions.isPlayerInLobby == false)
                     {
-                        Terminal.Log("Activated mod for next lobby!");
+                        Terminal.Log("Activated for next lobby!");
                     }
                 }
                 else if (Conditions.didPlayerDecided == true)
@@ -138,7 +153,7 @@ namespace AutoReadyUp
 
                     if (Conditions.isPlayerInLobby == false)
                     {
-                        Terminal.Log("Activated mod for next lobby!");
+                        Terminal.Log("Deactivated for next lobby!");
                     }
                 }
                 
