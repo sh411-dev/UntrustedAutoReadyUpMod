@@ -46,35 +46,30 @@ namespace AutoReadyUp
     {
         public static void Postfix(LobbyUiManager __instance)
         {
-            if (Conditions.isPlayerInLobby == true)
+            if (Conditions.isPlayerInLobby == true
+                && Conditions.didPlayerDecided == true
+                && Conditions.isModActivated == false)
             {
-                if (Conditions.areStatsShown == false)
-                {
-                    if (Conditions.isModActivated == true)
-                    {
-                        Terminal.Log("Activated for current lobby!");
-                    }
-                    else if (Conditions.isModActivated == false)
-                    {
-                        Terminal.Log("Deactivated for current lobby!");
-                    }
-                    Conditions.areStatsShown = true;
-                }
+                Conditions.isModActivated = true;
+            }
+            else if (Conditions.isPlayerInLobby == true 
+                && Conditions.didPlayerDecided == false
+                && Conditions.isModActivated == true)
+            {
+                Conditions.isModActivated = false;
+            }
 
-                if (Conditions.didPlayerDecided == true
-                    && Conditions.isModActivated == false
-                    && Conditions.areStatsShown == true)
+            if (Conditions.areStatsShown == false)
+            {
+                if (Conditions.didPlayerDecided == false)
                 {
-                    Conditions.isModActivated = true;
                     Terminal.Log("Activated for current lobby!");
                 }
-                else if (Conditions.didPlayerDecided == false
-                    && Conditions.isModActivated == true
-                    && Conditions.areStatsShown == true)
+                else if (Conditions.didPlayerDecided == true)
                 {
-                    Conditions.isModActivated = false;
                     Terminal.Log("Deactivated for current lobby!");
                 }
+                Conditions.areStatsShown = true;
             }
 
             if (Conditions.isModActivated == true && SetCounterPatch.playerCount >= 10)
@@ -177,6 +172,10 @@ namespace AutoReadyUp
                     {
                         Terminal.Log("Activated for next lobby!");
                     }
+                    else if (Conditions.isPlayerInLobby == true)
+                    {
+                        Terminal.Log("Activated for current lobby!");
+                    }
                 }
                 else if (Conditions.didPlayerDecided == true)
                 {
@@ -185,6 +184,10 @@ namespace AutoReadyUp
                     if (Conditions.isPlayerInLobby == false)
                     {
                         Terminal.Log("Deactivated for next lobby!");
+                    }
+                    else if (Conditions.isPlayerInLobby == true)
+                    {
+                        Terminal.Log("Deactivated for current lobby!");
                     }
                 }
                 
