@@ -14,16 +14,18 @@ namespace AutoReadyUp
             if (__0 == "YOUJOINEDTHELOBBY")
             {
                 Conditions.isPlayerInLobby = true;
+                Conditions.areStatsShown = false;
             }
         }
     }
 
     [HarmonyPatch(typeof(LobbyUiManager), "OnDisconnectButtonClicked")]
-    public static class OnChatLeftPatch
+    public static class OnDisconnectButtonClickedPatch
     {
         public static void Postfix()
         {
             Conditions.isPlayerInLobby = false;
+            Conditions.areStatsShown = false;
         }
     }
 
@@ -46,23 +48,40 @@ namespace AutoReadyUp
         {
             if (Conditions.isPlayerInLobby == true)
             {
-                if (Conditions.didPlayerDecided == true && Conditions.activateMod == false)
+                if (Conditions.areStatsShown == false)
                 {
-                    Conditions.activateMod = true;
+                    if (Conditions.isModActivated == true)
+                    {
+                        Terminal.Log("Activated for current lobby!");
+                    }
+                    else if (Conditions.isModActivated == false)
+                    {
+                        Terminal.Log("Deactivated for current lobby!");
+                    }
+                    Conditions.areStatsShown = true;
+                }
+
+                if (Conditions.didPlayerDecided == true
+                    && Conditions.isModActivated == false
+                    && Conditions.areStatsShown == true)
+                {
+                    Conditions.isModActivated = true;
                     Terminal.Log("Activated for current lobby!");
                 }
-                else if (Conditions.didPlayerDecided == false && Conditions.activateMod == true)
+                else if (Conditions.didPlayerDecided == false
+                    && Conditions.isModActivated == true
+                    && Conditions.areStatsShown == true)
                 {
-                    Conditions.activateMod = false;
+                    Conditions.isModActivated = false;
                     Terminal.Log("Deactivated for current lobby!");
                 }
             }
 
-            if (Conditions.activateMod == true && SetCounterPatch.playerCount >= 10)
+            if (Conditions.isModActivated == true && SetCounterPatch.playerCount >= 10)
             {
                 __instance.OnSetReadyButtonClicked();
                 Conditions.didPlayerDecided = false;
-                Conditions.activateMod = false;
+                Conditions.isModActivated = false;
                 Terminal.Log("Readied up successfuly! Deactivated mod for current lobby.");
             }
         }
@@ -121,10 +140,22 @@ namespace AutoReadyUp
 
     public static class Conditions
     {
+        // theese comments are bad and only intended to remember what are variables for
+
+        // is Untrusted just launched
         public static bool isInitialLaunch = true;
+
+        // player decision about wether to activate mod or not to
         public static bool didPlayerDecided = true;
-        public static bool activateMod = false;
+
+        // is player in lobby right now
         public static bool isPlayerInLobby = false;
+
+        // is mod activated
+        public static bool isModActivated = false;
+
+        // are statistic in lobby alredy shown
+        public static bool areStatsShown = false;
     }
 
     public class ModClass : MelonMod
