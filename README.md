@@ -26,4 +26,5 @@ AutoReadyUp mod is licensed under GNU GPL, version 3. See [License](https://gith
 
 ## Credits
 Andrea Alessi (aka Knu) - for making such a great game called Untrusted;  
+zero.Identity() - for testing;  
 TODO
