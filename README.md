@@ -10,6 +10,9 @@ In order to install this mod you need to install MelonLoader first. [Link to off
 # Usage
 After loging into the game you will see a message telling you some basic stuff. That is how you understand that mod is properly loaded. Now join any lobby!
 
+# Compiling yourself
+TODO
+
 # Contribution
 TODO
 
