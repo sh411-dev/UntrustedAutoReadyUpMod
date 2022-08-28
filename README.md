@@ -1,6 +1,9 @@
 # Untrusted AutoReadyUp Mod
 Mod for game called [Untrusted](https://store.steampowered.com/app/1502660/Untrusted/). It makes you auto ready up when at least 10 players are in your lobby.
 
+# DISCLAIMER
+As for now, using the mod will not ban your account. However, as this is a modification that is against the EULA(as it uses some parts of decompiled code), it may become bannable in the future. I will not take any responsibility upon that. You are warned. 
+
 ## Installation
 In order to install this mod you need to install MelonLoader first. [Link to official installation guide](https://github.com/LavaGang/MelonLoader.Installer/blob/master/README.md#how-to-install-re-install-or-update-melonloader).  
 
@@ -18,5 +21,9 @@ TODO
 ## Compiling yourself
 TODO
 
+## License
+AutoReadyUp mod is licensed under GNU GPL, version 3. See [License]() for the full license.
+
 ## Credits
+Andrea Alessi (aka Knu) - for making such a great game called Untrusted;
 TODO
