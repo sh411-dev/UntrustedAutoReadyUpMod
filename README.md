@@ -10,7 +10,7 @@ After you installed MelonLoader, follow these steps:
 3. Run the game!
 
 ## Usage
-After loging into the game you will see a message telling you some basic stuff. That is how you understand that mod is properly loaded. Now join any lobby!
+After log in you will see a message telling you some basic stuff. That is how you understand that mod is properly loaded. Now join any lobby!
 
 ## Bug Reports/Contribution
 TODO
