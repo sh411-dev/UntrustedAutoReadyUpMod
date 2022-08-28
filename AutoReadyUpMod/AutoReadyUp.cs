@@ -123,18 +123,19 @@ namespace AutoReadyUp
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                string message = "";
-                if (Conditions.didPlayerDecided == false)
+                if (Conditions.isPlayerInLobby == false)
                 {
-                    Conditions.didPlayerDecided = true;
-                    message = "Activated mod for next lobby!";
+                    if (Conditions.didPlayerDecided == false)
+                    {
+                        Conditions.didPlayerDecided = true;
+                        Terminal.Log("Activated mod for next lobby!");
+                    }
+                    else if (Conditions.didPlayerDecided == true)
+                    {
+                        Conditions.didPlayerDecided = false;
+                        Terminal.Log("Deactivated mod for next lobby!");
+                    }
                 }
-                else if (Conditions.didPlayerDecided == true)
-                {
-                    Conditions.didPlayerDecided = false;
-                    message = "Deactivated mod for next lobby!";
-                }
-                Terminal.Log(message);
             }
         }
     }
