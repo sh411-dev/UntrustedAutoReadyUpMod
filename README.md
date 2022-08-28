@@ -25,5 +25,5 @@ TODO
 AutoReadyUp mod is licensed under GNU GPL, version 3. See [License](https://github.com/sh411-dev/UntrustedAutoReadyUpMod/blob/main/LICENSE) for the full license.
 
 ## Credits
-Andrea Alessi (aka Knu) - for making such a great game called Untrusted;
+Andrea Alessi (aka Knu) - for making such a great game called Untrusted;  
 TODO
