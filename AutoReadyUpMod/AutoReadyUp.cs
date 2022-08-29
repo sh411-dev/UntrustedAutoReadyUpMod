@@ -117,15 +117,18 @@ namespace AutoReadyUp
 
     // as PlayerListPlayerHelper.GetPlayerNick() gets invoked only in game
     // it will be used for reactivating mod after a match
-   /* [HarmonyPatch(typeof(PlayerListPlayerHelper), "GetPlayerNick")]
+    [HarmonyPatch(typeof(PlayerListPlayerHelper), "GetPlayerNick")]
     public static class GetPlayerNickPatch
     {
         public static void Postfix()
         {
-            Conditions.didPlayerDecided = true;
-            Conditions.isModActivated = false;
+            if (Conditions.isActivatedBySelf == true)
+            {
+                Conditions.didPlayerDecided = true;
+                Conditions.isActivatedBySelf = false;
+            }
         }
-    }*/
+    }
 
     public static class Terminal
     {
