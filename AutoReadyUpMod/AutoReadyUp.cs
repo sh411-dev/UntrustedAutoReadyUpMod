@@ -26,6 +26,12 @@ namespace AutoReadyUp
         {
             Conditions.isPlayerInLobby = false;
             Conditions.areStatsShown = false;
+
+            if (Conditions.isActivatedBySelf == true)
+            {
+                Conditions.didPlayerDecided = true;
+                Conditions.isActivatedBySelf = false;
+            }
         }
     }
 
@@ -76,6 +82,7 @@ namespace AutoReadyUp
                 __instance.OnSetReadyButtonClicked();
                 Conditions.didPlayerDecided = false;
                 Conditions.isModActivated = false;
+                Conditions.isActivatedBySelf = true;
                 Terminal.Log("Readied up successfuly! Deactivated mod for current lobby.");
             }
         }
@@ -108,19 +115,31 @@ namespace AutoReadyUp
         }
     }
 
+    // as PlayerListPlayerHelper.GetPlayerNick() gets invoked only in game
+    // it will be used for reactivating mod after a match
+   /* [HarmonyPatch(typeof(PlayerListPlayerHelper), "GetPlayerNick")]
+    public static class GetPlayerNickPatch
+    {
+        public static void Postfix()
+        {
+            Conditions.didPlayerDecided = true;
+            Conditions.isModActivated = false;
+        }
+    }*/
+
     public static class Terminal
     {
         public static void Log(string message)
         {
             /* arguments
-             * 1 is a type of message:
+             * 1 is a type of message(in negative int smhw):
              *      -1 - system message
              *      -2 - broadcast???
              *      -3 - chat message
-             *      -4 - some kind of purple text in the second argument
+             *      -4 - dead chat
              *      -5 - asc
-             * 2 is initial text
-             * 3 is a message
+             * 2 is unanimated text
+             * 3 is animated text
              * 4 is an icon
              * 5 is event icon
              * 6 is text speed
@@ -134,7 +153,7 @@ namespace AutoReadyUp
 
     public static class Conditions
     {
-        // theese comments are bad and only intended to remember what are variables for
+        // these comments are bad and only intended to remember what are variables for
 
         // is Untrusted just launched
         public static bool isInitialLaunch = true;
@@ -150,6 +169,9 @@ namespace AutoReadyUp
 
         // are statistic in lobby alredy shown
         public static bool areStatsShown = false;
+
+        // did mod trigger
+        public static bool isActivatedBySelf = false;
     }
 
     public class ModClass : MelonMod
